@@ -1,79 +1,79 @@
-var canvas = document.getElementById("starfield");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+document.addEventListener("DOMContentLoaded", () => {
+    const canvas = document.getElementById("starfield");
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-var context = canvas.getContext("2d");
-var stars = 500;
-var colorrange = [0, 60, 240];
-var starArray = [];
+    const context = canvas.getContext("2d");
+    const stars = 500;
+    const colorrange = [0, 60, 240];
+    const starArray = [];
 
-function getRandom(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-for (var i = 0; i < stars; i++) {
-  var x = Math.random() * canvas.offsetWidth;
-  var y = Math.random() * canvas.offsetHeight;
-  var radius = Math.random() * 1.2;
-  var hue = colorrange[getRandom(0, colorrange.length - 1)];
-  var sat = getRandom(50, 100);
-  var opacity = Math.random(); // Initialize with random opacity
-  starArray.push({ x, y, radius, hue, sat, opacity });
-}
-
-var frameNumber = 0;
-var opacity = 0;
-var secondOpacity = 0;
-var thirdOpacity = 0;
-
-var baseFrame = context.getImageData(
-  0,
-  0,
-  window.innerWidth,
-  window.innerHeight
-);
-
-function drawStars() {
-  for (var i = 0; i < stars; i++) {
-    var star = starArray[i];
-
-    context.beginPath();
-    context.arc(star.x, star.y, star.radius, 0, 360);
-    context.fillStyle =
-      "hsla(" + star.hue + ", " + star.sat + "%, 88%, " + star.opacity + ")";
-    context.fill();
-  }
-}
-
-function updateStars() {
-  for (var i = 0; i < stars; i++) {
-    if (Math.random() > 0.99) {
-      starArray[i].opacity = Math.random();
+    function getRandom(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-  }
-}
 
-const button = document.getElementById("valentinesButton");
+    for (let i = 0; i < stars; i++) {
+        const x = Math.random() * canvas.offsetWidth;
+        const y = Math.random() * canvas.offsetHeight;
+        const radius = Math.random() * 1.2;
+        const hue = colorrange[getRandom(0, colorrange.length - 1)];
+        const sat = getRandom(50, 100);
+        const opacity = Math.random(); // Initialize with random opacity
+        starArray.push({ x, y, radius, hue, sat, opacity });
+    }
 
-button.addEventListener("click", () => {
-  const messageInput = document.getElementById("messageInput");
-  const message = messageInput.value.trim();
-  const recipientNumber = "9971150913"; // Change this to the recipient's phone number
+    let frameNumber = 0;
+    let opacity = 0;
+    let secondOpacity = 0;
+    let thirdOpacity = 0;
 
-  if (message !== "") {
-    const encodedMessage = encodeURIComponent(message);
-    const smsHref = `sms:${recipientNumber}?body=${encodedMessage}`;
-    window.location.href = smsHref;
+    let baseFrame = context.getImageData(
+        0,
+        0,
+        window.innerWidth,
+        window.innerHeight
+    );
 
-    // Redirect to proposeday.html after sending SMS
-    setTimeout(() => {
-      window.location.href = "propose.html";
-    }, 3000); // Redirect after 2 seconds (adjust as needed)
-  } else {
-    alert("Please enter a message before sending.");
-  }
-});
+    function drawStars() {
+        for (let i = 0; i < stars; i++) {
+            const star = starArray[i];
 
+            context.beginPath();
+            context.arc(star.x, star.y, star.radius, 0, 360);
+            context.fillStyle =
+                "hsla(" + star.hue + ", " + star.sat + "%, 88%, " + star.opacity + ")";
+            context.fill();
+        }
+    }
+
+    function updateStars() {
+        for (let i = 0; i < stars; i++) {
+            if (Math.random() > 0.99) {
+                starArray[i].opacity = Math.random();
+            }
+        }
+    }
+
+    const button = document.getElementById("valentinesButton");
+
+    button.addEventListener("click", () => {
+        const messageInput = document.getElementById("messageInput");
+        const message = messageInput.value.trim();
+        const recipientNumber = "9971150913"; // Change this to the recipient's phone number
+
+        if (message !== "") {
+            const encodedMessage = encodeURIComponent(message);
+            const smsHref = `sms:${recipientNumber}?body=${encodedMessage}`;
+            window.location.href = smsHref;
+
+            // Redirect to proposeday.html after sending SMS
+            setTimeout(() => {
+                window.location.href = "propose.html";
+            }, 3000); // Redirect after 3 seconds (adjust as needed)
+        } else {
+            alert("Please enter a message before sending.");
+        }
+    });
 
 function drawTextWithLineBreaks(lines, x, y, fontSize, lineHeight) {
   lines.forEach((line, index) => {
@@ -318,23 +318,25 @@ function drawText() {
   }
 }
 
-function draw() {
-  context.putImageData(baseFrame, 0, 0);
+    function draw() {
+        context.putImageData(baseFrame, 0, 0);
 
-  drawStars();
-  updateStars();
-  drawText();
+        drawStars();
+        updateStars();
+        drawText();
 
-  if (frameNumber < 99999) {
-    frameNumber++;
-  }
-  window.requestAnimationFrame(draw);
-}
+        if (frameNumber < 99999) {
+            frameNumber++;
+        }
+        window.requestAnimationFrame(draw);
+    }
 
-window.addEventListener("resize", function () {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-  baseFrame = context.getImageData(0, 0, window.innerWidth, window.innerHeight);
+    window.addEventListener("resize", () => {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        baseFrame = context.getImageData(0, 0, window.innerWidth, window.innerHeight);
+    });
+
+    draw();
 });
 
-window.requestAnimationFrame(draw);
