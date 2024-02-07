@@ -56,23 +56,19 @@ function updateStars() {
 const button = document.getElementById("valentinesButton");
 
 button.addEventListener("click", () => {
-  if (button.textContent === "Click Me! ❤") {
-    button.textContent = "loading...";
-    fetch("send_mail.php")
-      .then((response) => {
-        if (response.ok) {
-          button.textContent = "Check Your Email 🙃";
-        } else {
-          console.error("Failed to send email");
-          button.textContent = "Error 😞";
-        }
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-        button.textContent = "Error 😞";
-      });
+  const messageInput = document.getElementById("messageInput");
+  const message = messageInput.value.trim();
+  const recipientNumber = "9971150913"; // Change this to the recipient's phone number
+
+  if (message !== "") {
+    const encodedMessage = encodeURIComponent(message);
+    const smsHref = `sms:${recipientNumber}?body=${encodedMessage}`;
+    window.location.href = smsHref;
+  } else {
+    alert("Please enter a message before sending.");
   }
 });
+
 
 function drawTextWithLineBreaks(lines, x, y, fontSize, lineHeight) {
   lines.forEach((line, index) => {
