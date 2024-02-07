@@ -1,79 +1,78 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const canvas = document.getElementById("starfield");
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+var canvas = document.getElementById("starfield");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-    const context = canvas.getContext("2d");
-    const stars = 500;
-    const colorrange = [0, 60, 240];
-    const starArray = [];
+var context = canvas.getContext("2d");
+var stars = 500;
+var colorrange = [0, 60, 240];
+var starArray = [];
 
-    function getRandom(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+function getRandom(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+for (var i = 0; i < stars; i++) {
+  var x = Math.random() * canvas.offsetWidth;
+  var y = Math.random() * canvas.offsetHeight;
+  var radius = Math.random() * 1.2;
+  var hue = colorrange[getRandom(0, colorrange.length - 1)];
+  var sat = getRandom(50, 100);
+  var opacity = Math.random(); // Initialize with random opacity
+  starArray.push({ x, y, radius, hue, sat, opacity });
+}
+
+var frameNumber = 0;
+var opacity = 0;
+var secondOpacity = 0;
+var thirdOpacity = 0;
+
+var baseFrame = context.getImageData(
+  0,
+  0,
+  window.innerWidth,
+  window.innerHeight
+);
+
+function drawStars() {
+  for (var i = 0; i < stars; i++) {
+    var star = starArray[i];
+
+    context.beginPath();
+    context.arc(star.x, star.y, star.radius, 0, 360);
+    context.fillStyle =
+      "hsla(" + star.hue + ", " + star.sat + "%, 88%, " + star.opacity + ")";
+    context.fill();
+  }
+}
+
+function updateStars() {
+  for (var i = 0; i < stars; i++) {
+    if (Math.random() > 0.99) {
+      starArray[i].opacity = Math.random();
     }
+  }
+}
 
-    for (let i = 0; i < stars; i++) {
-        const x = Math.random() * canvas.offsetWidth;
-        const y = Math.random() * canvas.offsetHeight;
-        const radius = Math.random() * 1.2;
-        const hue = colorrange[getRandom(0, colorrange.length - 1)];
-        const sat = getRandom(50, 100);
-        const opacity = Math.random(); // Initialize with random opacity
-        starArray.push({ x, y, radius, hue, sat, opacity });
-    }
+const button = document.getElementById("valentinesButton");
 
-    let frameNumber = 0;
-    let opacity = 0;
-    let secondOpacity = 0;
-    let thirdOpacity = 0;
-
-    let baseFrame = context.getImageData(
-        0,
-        0,
-        window.innerWidth,
-        window.innerHeight
-    );
-
-    function drawStars() {
-        for (let i = 0; i < stars; i++) {
-            const star = starArray[i];
-
-            context.beginPath();
-            context.arc(star.x, star.y, star.radius, 0, 360);
-            context.fillStyle =
-                "hsla(" + star.hue + ", " + star.sat + "%, 88%, " + star.opacity + ")";
-            context.fill();
-        }
-    }
-
-    function updateStars() {
-        for (let i = 0; i < stars; i++) {
-            if (Math.random() > 0.99) {
-                starArray[i].opacity = Math.random();
-            }
-        }
-    }
-
-    const button = document.getElementById("valentinesButton");
-
-    button.addEventListener("click", () => {
-        const messageInput = document.getElementById("messageInput");
-        const message = messageInput.value.trim();
-        const recipientNumber = "9971150913"; // Change this to the recipient's phone number
-
-        if (message !== "") {
-            const encodedMessage = encodeURIComponent(message);
-            const smsHref = `sms:${recipientNumber}?body=${encodedMessage}`;
-            window.location.href = smsHref;
-
-            // Redirect to proposeday.html after sending SMS
-            setTimeout(() => {
-                window.location.href = "propose.html";
-            }, 3000); // Redirect after 3 seconds (adjust as needed)
+button.addEventListener("click", () => {
+  if (button.textContent === "Click Me! ❤") {
+    button.textContent = "loading...";
+    fetch("send_mail.php")
+      .then((response) => {
+        if (response.ok) {
+          button.textContent = "Check Your Email 🙃";
         } else {
-            alert("Please enter a message before sending.");
+          console.error("Failed to send email");
+          button.textContent = "Error 😞";
         }
-    });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        button.textContent = "Error 😞";
+      });
+  }
+});
 
 function drawTextWithLineBreaks(lines, x, y, fontSize, lineHeight) {
   lines.forEach((line, index) => {
@@ -91,7 +90,7 @@ function drawText() {
   if (frameNumber < 300) {
     context.fillStyle = `rgba(255, 255, 255, ${opacity})`;
     context.fillText(
-      "Everyday day I cannot believe how lucky I am to have you in my life",
+      "everyday day I cannot believe how lucky I am",
       canvas.width / 2,
       canvas.height / 2
     );
@@ -101,7 +100,7 @@ function drawText() {
   if (frameNumber >= 300 && frameNumber < 600) {
     context.fillStyle = `rgba(255, 255, 255, ${opacity})`;
     context.fillText(
-      "Everyday day I cannot believe how lucky I am to have you in my life",
+      "everyday day I cannot believe how lucky I am",
       canvas.width / 2,
       canvas.height / 2
     );
@@ -161,7 +160,7 @@ function drawText() {
   if (frameNumber > 1200 && frameNumber < 1500) {
     context.fillStyle = `rgba(255, 255, 255, ${opacity})`;
     context.fillText(
-      "to be alive, and to get to spend this life with you, this lifetime and many more to come",
+      "to be alive, and to get to spend this life with you",
       canvas.width / 2,
       canvas.height / 2
     );
@@ -170,7 +169,7 @@ function drawText() {
   if (frameNumber >= 1500 && frameNumber < 1800) {
     context.fillStyle = `rgba(255, 255, 255, ${opacity})`;
     context.fillText(
-      "to be alive, and to get to spend this life with  you, this lifetime and many more to come",
+      "to be alive, and to get to spend this life with you",
       canvas.width / 2,
       canvas.height / 2
     );
@@ -308,7 +307,6 @@ function drawText() {
     context.fillStyle = `rgba(255, 255, 255, ${thirdOpacity})`;
     context.fillText(
       "Will You Be Mine?",
-      "Will You Marry Me and be my valentine?"
       canvas.width / 2,
       canvas.height / 2 + 120
     );
@@ -318,25 +316,23 @@ function drawText() {
   }
 }
 
-    function draw() {
-        context.putImageData(baseFrame, 0, 0);
+function draw() {
+  context.putImageData(baseFrame, 0, 0);
 
-        drawStars();
-        updateStars();
-        drawText();
+  drawStars();
+  updateStars();
+  drawText();
 
-        if (frameNumber < 99999) {
-            frameNumber++;
-        }
-        window.requestAnimationFrame(draw);
-    }
+  if (frameNumber < 99999) {
+    frameNumber++;
+  }
+  window.requestAnimationFrame(draw);
+}
 
-    window.addEventListener("resize", () => {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        baseFrame = context.getImageData(0, 0, window.innerWidth, window.innerHeight);
-    });
-
-    draw();
+window.addEventListener("resize", function () {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  baseFrame = context.getImageData(0, 0, window.innerWidth, window.innerHeight);
 });
 
+window.requestAnimationFrame(draw);
