@@ -67,7 +67,7 @@ button.addEventListener("click", () => {
 
     // Redirect to proposeday.html after sending SMS
     setTimeout(() => {
-      window.location.href = "proposeday.html";
+      window.location.href = "propose.html";
     }, 3000); // Redirect after 2 seconds (adjust as needed)
   } else {
     alert("Please enter a message before sending.");
