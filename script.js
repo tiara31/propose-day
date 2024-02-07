@@ -90,7 +90,7 @@ function drawText() {
   if (frameNumber < 300) {
     context.fillStyle = `rgba(255, 255, 255, ${opacity})`;
     context.fillText(
-      "everyday day I cannot believe how lucky I am",
+      "Everyday day I cannot believe how lucky I am to have you in my life",
       canvas.width / 2,
       canvas.height / 2
     );
@@ -100,7 +100,7 @@ function drawText() {
   if (frameNumber >= 300 && frameNumber < 600) {
     context.fillStyle = `rgba(255, 255, 255, ${opacity})`;
     context.fillText(
-      "everyday day I cannot believe how lucky I am",
+      "Everyday day I cannot believe how lucky I am to have you in my life",
       canvas.width / 2,
       canvas.height / 2
     );
@@ -160,7 +160,7 @@ function drawText() {
   if (frameNumber > 1200 && frameNumber < 1500) {
     context.fillStyle = `rgba(255, 255, 255, ${opacity})`;
     context.fillText(
-      "to be alive, and to get to spend this life with you",
+      "to be alive, and to get to spend this life with you, this lifetime and many more to come",
       canvas.width / 2,
       canvas.height / 2
     );
@@ -169,7 +169,7 @@ function drawText() {
   if (frameNumber >= 1500 && frameNumber < 1800) {
     context.fillStyle = `rgba(255, 255, 255, ${opacity})`;
     context.fillText(
-      "to be alive, and to get to spend this life with you",
+      "to be alive, and to get to spend this life with  you, this lifetime and many more to come",
       canvas.width / 2,
       canvas.height / 2
     );
@@ -307,6 +307,7 @@ function drawText() {
     context.fillStyle = `rgba(255, 255, 255, ${thirdOpacity})`;
     context.fillText(
       "Will You Be Mine?",
+      "Will You Marry Me and be my valentine?"
       canvas.width / 2,
       canvas.height / 2 + 120
     );
