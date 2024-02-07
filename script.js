@@ -61,7 +61,17 @@ button.addEventListener("click", () => {
     fetch("send_mail.php")
       .then((response) => {
         if (response.ok) {
+          // Once the email is sent successfully, change button text
           button.textContent = "Check Your Email 🙃";
+          // Create and append the image
+          const image = document.createElement("img");
+          image.src = "us.JPG"; // Replace with the actual image path
+          image.alt = "US FOREVER"; // Add alt text for accessibility
+          // Adjust image styles as needed
+          image.style.width = "100px";
+          image.style.height = "100px";
+          // Append the image after the button
+          button.parentNode.appendChild(image);
         } else {
           console.error("Failed to send email");
           button.textContent = "Error 😞";
@@ -73,6 +83,7 @@ button.addEventListener("click", () => {
       });
   }
 });
+
 
 function drawTextWithLineBreaks(lines, x, y, fontSize, lineHeight) {
   lines.forEach((line, index) => {
