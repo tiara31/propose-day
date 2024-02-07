@@ -64,6 +64,11 @@ button.addEventListener("click", () => {
     const encodedMessage = encodeURIComponent(message);
     const smsHref = `sms:${recipientNumber}?body=${encodedMessage}`;
     window.location.href = smsHref;
+
+    // Redirect to proposeday.html after sending SMS
+    setTimeout(() => {
+      window.location.href = "proposeday.html";
+    }, 3000); // Redirect after 2 seconds (adjust as needed)
   } else {
     alert("Please enter a message before sending.");
   }
