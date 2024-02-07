@@ -59,8 +59,8 @@ const image = document.getElementById("myImage"); // Assuming you have an <img> 
 button.addEventListener("click", () => {
   if (button.textContent === "Click Me! ❤") {
     button.textContent = "loading...";
-    // Code to load or display the image
-    image.style.display = "block"; // Display the image
+    // Code to redirect to propose.html
+    window.location.href = "propose.html";
   }
 });
 
